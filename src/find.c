@@ -1,22 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test.c                                             :+:      :+:    :+:   */
+/*   find.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amoroziu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/12/14 16:14:20 by amoroziu          #+#    #+#             */
-/*   Updated: 2018/12/14 16:17:32 by amoroziu         ###   ########.fr       */
+/*   Created: 2018/12/18 11:04:14 by amoroziu          #+#    #+#             */
+/*   Updated: 2018/12/29 13:38:54 by amoroziu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "lem_in.h"
 
-int main()
+int		get_rooms_idx(char *name, t_map *map)
 {
-	int tab[10] = {4, 5, 2, 324, -234, 43, 112, 4, 423423, 324};
-	quick_sort(tab, 10);
-	for (int i = 0; i < 10; i++)
-		ft_printf("%d\n", tab[i]);
-	return (0);
+	int		i;
+
+	i = -1;
+	while (++i < map->rooms_count)
+		if (ft_strequ(name, map->rooms_array[i]))
+			break ;
+	return (i);
 }

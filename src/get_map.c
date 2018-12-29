@@ -6,11 +6,36 @@
 /*   By: amoroziu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/15 10:53:51 by amoroziu          #+#    #+#             */
-/*   Updated: 2018/12/16 13:40:33 by amoroziu         ###   ########.fr       */
+/*   Updated: 2018/12/24 15:43:00 by amoroziu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
+
+void		add_to_arr(char **arr, char *str)
+{
+	int		i;
+	char	**new;
+
+	if (!arr)
+	{
+		arr = (char**)malloc(sizeof(char*) * 2);
+		arr[0] = str;
+		arr[1] = NULL;
+		return ;
+	}
+	i = -1;
+	while (arr[++i])
+		;
+	new = (char**)malloc(sizeof(char*) * (i + 1));
+	i = -1;
+	while (arr[++i])
+		new[i] = arr[i];
+	new[i] = str;
+	new[i + 1] = NULL;
+	arrdel(arr);
+	arr = new;
+}
 
 static int	get_ants_number(t_map *map)
 {
@@ -48,7 +73,7 @@ int			get_map(t_map *map)
 	{
 		if (!proceed_line(line, map))
 			return (0);
-		ft_strdel(&line);
+		add_to_arr(map->input, line);
 	}
 	if (get_next_line(1, &line) == -1)
 		perror("ERROR");

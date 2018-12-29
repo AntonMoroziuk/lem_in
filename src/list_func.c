@@ -1,47 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   delete.c                                           :+:      :+:    :+:   */
+/*   list_func.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amoroziu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/12/15 10:47:20 by amoroziu          #+#    #+#             */
-/*   Updated: 2018/12/15 10:47:22 by amoroziu         ###   ########.fr       */
+/*   Created: 2018/12/15 11:37:18 by amoroziu          #+#    #+#             */
+/*   Updated: 2018/12/24 15:44:33 by amoroziu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-void	delete_room(t_room *room)
+void	add_room(t_map *map, t_room *room)
 {
-	ft_strdel(&room->name);
-	free(room);
-}
+	t_room	*cur;
 
-void	delete_rooms(t_room *head)
-{
-	t_room	*temp;
-
-	temp = head;
-	while (temp)
+	map->rooms_count++;
+	if (!map->rooms)
+		map->rooms = room;
+	else
 	{
-		temp = temp->next;
-		delete_room(head);
-		head = temp;
-	}
-}
-
-void	delete_links(t_link *head)
-{
-	t_link	*temp;
-
-	temp = head;
-	while (temp)
-	{
-		temp = temp->next;
-		ft_strdel(&head->first);
-		ft_strdel(&head->second);
-		free(head);
-		head = temp;
+		cur = map->rooms;
+		while (cur->next)
+			cur = cur->next;
+		cur->next = room;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: amoroziu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/23 15:39:02 by amoroziu          #+#    #+#             */
-/*   Updated: 2018/12/14 16:41:40 by amoroziu         ###   ########.fr       */
+/*   Updated: 2018/12/28 16:36:10 by amoroziu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # define MALLOCCHECK_NULL(x) if (!x) return (NULL);
 # define MAX(a,b) ((a)>(b) ? (a) : (b));
 # define MIN(a,b) ((a)<(b) ? (a) : (b));
+# define SQR(x) (x * x)
 # include <string.h>
 # include <stdarg.h>
 # include "get_next_line.h"

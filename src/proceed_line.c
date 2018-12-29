@@ -6,7 +6,7 @@
 /*   By: amoroziu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/15 11:14:38 by amoroziu          #+#    #+#             */
-/*   Updated: 2018/12/16 13:42:46 by amoroziu         ###   ########.fr       */
+/*   Updated: 2018/12/29 12:50:36 by amoroziu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 static int	get_edge(t_map *map, char *room, char *command)
 {
+	add_to_arr(map->input, room);
 	if (ft_strequ(command, "##start"))
 	{
 		if (!(map->start = get_room(room, map)))
@@ -52,6 +53,7 @@ static void	add_link(t_map *map, t_link *link)
 {
 	t_link	*cur;
 
+	add_link_to_rooms(map, link);
 	if (!map->links)
 		map->links = link;
 	else

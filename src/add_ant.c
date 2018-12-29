@@ -1,29 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   list_func.c                                        :+:      :+:    :+:   */
+/*   add_ant.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amoroziu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/12/15 11:37:18 by amoroziu          #+#    #+#             */
-/*   Updated: 2018/12/15 11:37:19 by amoroziu         ###   ########.fr       */
+/*   Created: 2018/12/28 15:19:10 by amoroziu          #+#    #+#             */
+/*   Updated: 2018/12/29 13:28:26 by amoroziu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-void	add_room(t_map *map, t_room *room)
+static t_ant	*create_ant(int ant_idx)
 {
-	t_room	*cur;
+	t_ant	*new;
 
-	map->rooms_count++;
-	if (!map->rooms)
-		map->rooms = room;
+	new = (t_ant*)malloc(sizeof(t_ant));
+	new->pos = 0;
+	new->idx = ant_idx;
+	new->next = NULL;
+	return (new);
+}
+
+void	add_ant(t_path *path, int ant_idx)
+{
+	t_ant	*new;
+	t_ant	*cur;
+
+	new = create_ant(ant_idx);
+	if (!path->ants)
+		path->ants = new;
 	else
 	{
-		cur = map->rooms;
-		while (cur->next)
+		cur = path->ants;
+		while (cur)
 			cur = cur->next;
-		cur->next = room;
+		cur->next = new;
 	}
 }

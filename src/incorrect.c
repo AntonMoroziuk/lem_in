@@ -6,13 +6,13 @@
 /*   By: amoroziu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/16 13:44:49 by amoroziu          #+#    #+#             */
-/*   Updated: 2018/12/16 13:59:36 by amoroziu         ###   ########.fr       */
+/*   Updated: 2018/12/29 12:54:53 by amoroziu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-static void	room_exists(t_map *map, char *name)
+static int	room_exists(t_map *map, char *name)
 {
 	t_room	*cur;
 
@@ -26,11 +26,15 @@ static void	room_exists(t_map *map, char *name)
 	return (0);
 }
 
-static void	check_rooms(t_map *map, t_link *link)
+static int	check_rooms(t_map *map, t_link *link)
 {
 	if (!room_exists(map, link->first) ||
 		!room_exists(map, link->second))
+	{
 		ft_putendl("ERROR: Room does not exist!");
+		return (1);
+	}
+	return (0);
 }
 
 int			incorrect_link(t_map *map, t_link *link)
@@ -49,9 +53,11 @@ int			incorrect_link(t_map *map, t_link *link)
 			return (1);
 		}
 		else
-			check_rooms(map, link);
-		cur = cur->mext;
+			if (check_rooms(map, link))
+				return (1);
+		cur = cur->next;
 	}
+	return (0);
 }
 
 int 		incorrect_room(t_room *room, t_map *map)
@@ -61,12 +67,12 @@ int 		incorrect_room(t_room *room, t_map *map)
 	cur = map->rooms;
 	while (cur)
 	{
-		if (ft_strequ(cur->name, new->name))
+		if (ft_strequ(cur->name, room->name))
 		{
 			ft_putendl("ERROR: Room with this name already exists!");
 			return (1);
 		}
-		else if (new->x == cur->x && new->y == cur->y)
+		else if (room->x == cur->x && room->y == cur->y)
 		{
 			ft_putendl("ERROR: Two rooms with same coordinates!");
 			return (1);
