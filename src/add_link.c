@@ -6,11 +6,11 @@
 /*   By: amoroziu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/22 11:48:24 by amoroziu          #+#    #+#             */
-/*   Updated: 2018/12/29 13:33:41 by amoroziu         ###   ########.fr       */
+/*   Updated: 2018/12/29 14:02:55 by amoroziu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lem_in.h"
+#include "../includes/lem_in.h"
 
 static void	add_adj(t_room *room, char *name, t_map *map)
 {

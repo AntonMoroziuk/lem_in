@@ -6,11 +6,11 @@
 /*   By: amoroziu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/28 13:38:41 by amoroziu          #+#    #+#             */
-/*   Updated: 2018/12/29 13:10:56 by amoroziu         ###   ########.fr       */
+/*   Updated: 2018/12/29 14:02:55 by amoroziu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lem_in.h"
+#include "../includes/lem_in.h"
 
 static t_path	*new_path(t_room *room)
 {

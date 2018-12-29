@@ -6,11 +6,11 @@
 /*   By: amoroziu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/15 11:14:38 by amoroziu          #+#    #+#             */
-/*   Updated: 2018/12/29 12:50:36 by amoroziu         ###   ########.fr       */
+/*   Updated: 2018/12/29 15:48:52 by amoroziu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lem_in.h"
+#include "../includes/lem_in.h"
 
 static int	get_edge(t_map *map, char *room, char *command)
 {
@@ -108,7 +108,7 @@ int			proceed_line(char *line, t_map *map)
 			return (0);
 	}
 	else
-		if (!get_link(line, map))
+		if (no_start_or_end(map) || !get_link(line, map))
 			return (0);
 	return (1);
 }

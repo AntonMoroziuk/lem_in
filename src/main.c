@@ -6,13 +6,13 @@
 /*   By: amoroziu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/15 10:22:16 by amoroziu          #+#    #+#             */
-/*   Updated: 2018/12/29 13:37:13 by amoroziu         ###   ########.fr       */
+/*   Updated: 2018/12/29 15:49:05 by amoroziu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lem_in.h"
+#include "../includes/lem_in.h"
 
-static void	print_map(t_map *map)
+/*static void	print_map(t_map *map)
 {
 	int		i;
 
@@ -20,8 +20,23 @@ static void	print_map(t_map *map)
 	while (map->input[++i])
 		ft_printf("%s\n", map->input[i]);
 }
+*/
+int			no_start_or_end(t_map *map)
+{
+	if (!map->start)
+	{
+		ft_putendl("ERROR: No start given!");
+		return (1);
+	}
+	if (!map->end)
+	{
+		ft_putendl("ERROR: No end given!");
+		return (1);
+	}
+	return (0);
+}
 
-static void	free_map(t_map *map)
+/*static void	free_map(t_map *map)
 {
 	int		i;
 
@@ -39,7 +54,7 @@ static void	free_map(t_map *map)
 		free(map->input[i]);
 	free(map->input);
 }
-
+*/
 static void	initialize(t_map *map)
 {
 	map->rooms_count = 0;
@@ -60,15 +75,17 @@ int			main(void)
 	initialize(&map);
 	if (!get_map(&map))
 	{
-		free_map(&map);
+	//	free_map(&map);
 		return (0);
 	}
+	if (no_start_or_end(&map))
+		return (0);
 	work_with_map(&map);
 	if (!get_pathes(&map))
 		return (0);
-	print_map(&map);
+//	print_map(&map);
 	ft_putchar('\n');
-//	print_answer(&map);
+	print_answer(&map);
 //	free_map(&map);
 	return (0);
 }

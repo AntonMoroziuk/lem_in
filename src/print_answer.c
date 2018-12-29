@@ -6,11 +6,11 @@
 /*   By: amoroziu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/22 16:15:52 by amoroziu          #+#    #+#             */
-/*   Updated: 2018/12/29 12:52:02 by amoroziu         ###   ########.fr       */
+/*   Updated: 2018/12/29 14:02:55 by amoroziu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lem_in.h"
+#include "../includes/lem_in.h"
 
 static int	is_good(t_path *path, t_map *map)
 {
@@ -76,12 +76,14 @@ void		print_answer(t_map *map)
 	while (map->ants_count)
 	{
 		cur = map->pathes;
+		//ft_putendl("here");
 		while (cur)
 		{
 			if (is_good(cur, map))
 				add_ant(cur, start_number - map->ants_count + 1);
 			else
 				break ;
+			ft_putendl("here");
 			cur = cur->next;
 		}
 	}

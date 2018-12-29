@@ -6,11 +6,11 @@
 /*   By: amoroziu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/15 11:35:12 by amoroziu          #+#    #+#             */
-/*   Updated: 2018/12/29 13:38:45 by amoroziu         ###   ########.fr       */
+/*   Updated: 2018/12/29 15:48:42 by amoroziu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lem_in.h"
+#include "../includes/lem_in.h"
 
 static t_room	*new_room()
 {
@@ -60,7 +60,7 @@ t_room			*get_room(char *str, t_map *map)
 	if (!pseudo_atoi(str, &i, &new->x) || !pseudo_atoi(str, &i, &new->y) ||
 		str[i] || incorrect_room(new, map))
 	{
-		delete_room(new);
+		//delete_room(new);
 		return (NULL);
 	}
 	add_room(map, new);

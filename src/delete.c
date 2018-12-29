@@ -6,11 +6,11 @@
 /*   By: amoroziu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/15 10:47:20 by amoroziu          #+#    #+#             */
-/*   Updated: 2018/12/29 13:38:00 by amoroziu         ###   ########.fr       */
+/*   Updated: 2018/12/29 14:02:55 by amoroziu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lem_in.h"
+#include "../includes/lem_in.h"
 
 void	delete_room(t_room *room)
 {

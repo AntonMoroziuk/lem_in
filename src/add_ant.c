@@ -6,11 +6,11 @@
 /*   By: amoroziu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/28 15:19:10 by amoroziu          #+#    #+#             */
-/*   Updated: 2018/12/29 13:28:26 by amoroziu         ###   ########.fr       */
+/*   Updated: 2018/12/29 14:02:55 by amoroziu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lem_in.h"
+#include "../includes/lem_in.h"
 
 static t_ant	*create_ant(int ant_idx)
 {

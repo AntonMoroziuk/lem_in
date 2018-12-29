@@ -6,13 +6,13 @@
 /*   By: amoroziu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/14 17:19:12 by amoroziu          #+#    #+#             */
-/*   Updated: 2018/12/29 13:39:24 by amoroziu         ###   ########.fr       */
+/*   Updated: 2018/12/29 15:41:06 by amoroziu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LEM_IN_H
 # define LEM_IN_H
-# include "libft/libft.h"
+# include "../libft/libft.h"
 # include <stdio.h>
 
 typedef struct s_node	t_node;
@@ -92,7 +92,9 @@ int				incorrect_room(t_room *room, t_map *map);
 int				incorrect_link(t_map *map, t_link *link);
 int				proceed_line(char *line, t_map *map);
 int				get_pathes(t_map *map);
+int				no_start_or_end(t_map *map);
 void			add_room(t_map *map, t_room *room);
+void			create_pathes(t_map *map);
 void			add_link_to_rooms(t_map *map, t_link *link);
 void			add_to_arr(char **arr, char *str);
 void			count_inputs_outputs(t_map *map);
@@ -105,6 +107,7 @@ void			remove_room_from_adj(t_map *map, t_room *room);
 void			remove_link(t_link **to_delete, t_link *prev, t_map *map);
 void			remove_links_with_room(t_map *map, t_room *room);
 t_room			*get_room(char *str, t_map *map);
+t_room			*room_with_name(char *name, t_map *map);
 t_node			*queue_popfront(t_queue *queue);
 t_room			*get_room(char *name, t_map *map);
 

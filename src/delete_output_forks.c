@@ -6,11 +6,11 @@
 /*   By: amoroziu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/28 11:32:22 by amoroziu          #+#    #+#             */
-/*   Updated: 2018/12/29 13:12:56 by amoroziu         ###   ########.fr       */
+/*   Updated: 2018/12/29 14:02:55 by amoroziu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lem_in.h"
+#include "../includes/lem_in.h"
 
 static int	get_distanse_to_end(t_room	*room, t_map *map)
 {
@@ -78,6 +78,7 @@ void		delete_output_forks(t_map *map)
 	t_node	*next;
 
 	i = map->max_bfs + 1;
+	map->end->dist_to_end = 0;
 	while (--i > 0)
 	{
 		cur = map->rooms;

@@ -6,11 +6,11 @@
 /*   By: amoroziu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/22 12:11:14 by amoroziu          #+#    #+#             */
-/*   Updated: 2018/12/29 13:35:30 by amoroziu         ###   ########.fr       */
+/*   Updated: 2018/12/29 15:44:37 by amoroziu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lem_in.h"
+#include "../includes/lem_in.h"
 
 static void		delete_useless_links(t_map *map)
 {
@@ -23,8 +23,8 @@ static void		delete_useless_links(t_map *map)
 	prev = NULL;
 	while (cur)
 	{
-		first = get_room(cur->first, map);
-		second = get_room(cur->second, map);
+		first = room_with_name(cur->first, map);
+		second = room_with_name(cur->second, map);
 		if (first->bfs_level == -1 || second->bfs_level == -1 ||
 			first->bfs_level == second->bfs_level)
 			remove_link(&cur, prev, map);
@@ -84,6 +84,8 @@ static int		assign_bfs_level(t_map *map)
 	visited = (int*)malloc(sizeof(int) * map->rooms_count);
 	while (++i < map->rooms_count)
 		visited[i] = 0;
+	visited[0] = 1;
+	map->start->bfs_level = 0;
 	cur = (t_node*)malloc(sizeof(t_node));
 	cur->room = map->start;
 	cur->next = NULL;
@@ -113,6 +115,6 @@ int				get_pathes(t_map *map)
 	delete_dead_ends(map);
 	delete_input_forks(map);
 	delete_output_forks(map);
-	get_pathes(map);
+	create_pathes(map);
 	return (1);
 }

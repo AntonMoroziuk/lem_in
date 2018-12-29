@@ -6,11 +6,11 @@
 /*   By: amoroziu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/18 09:45:44 by amoroziu          #+#    #+#             */
-/*   Updated: 2018/12/28 16:36:41 by amoroziu         ###   ########.fr       */
+/*   Updated: 2018/12/29 15:44:49 by amoroziu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lem_in.h"
+#include "../includes/lem_in.h"
 
 static void	create_rooms_array(t_map *map)
 {

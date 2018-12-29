@@ -5,54 +5,76 @@
 #                                                     +:+ +:+         +:+      #
 #    By: amoroziu <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2018/12/06 12:43:34 by amoroziu          #+#    #+#              #
-#    Updated: 2018/12/29 13:47:26 by amoroziu         ###   ########.fr        #
+#    Created: 2018/12/29 14:28:47 by amoroziu          #+#    #+#              #
+#    Updated: 2018/12/29 14:37:37 by amoroziu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = lem-in
 
-LIB = libft/libftprintf.a
+# srcs, path and obj
 
-SRC = src/add_ant.c \
-	  src/add_link.c \
-	  src/algorithm.c \
-	  src/algorithm2.c \
-	  src/create_pathes.c \
-	  src/delete.c \
-	  src/delete_input_forks.c \
-	  src/delete_output_forks.c \
-	  src/find.c \
-	  src/get_map.c \
-	  src/get_room.c \
-	  src/incorrect.c \
-	  src/list_func.c \
-	  src/main.c \
-	  src/print_answer.c \
-	  src/proceed_line.c \
-	  src/queue_stuff.c \
-	  src/remove.c \
-	  src/work_with_map.c
+SRC_N			=	add_ant.c \
+                    add_link.c \
+					algorithm.c \
+					algorithm2.c \
+					create_pathes.c \
+					delete.c \
+					delete_input_forks.c \
+					delete_output_forks.c \
+					find.c \
+					get_map.c \
+					get_room.c \
+					incorrect.c \
+					list_func.c \
+					main.c \
+					print_answer.c \
+					proceed_line.c \
+					queue_stuff.c \
+					remove.c \
+					work_with_map.c
 
-FLAGC = -Wall -Werror -Wextra
+SRC_P 			= ./src/
+OBJ 			= $(addprefix $(OBJ_P),$(SRC_N:.c=.o))
+OBJ_P			= ./obj/
+INC 			= $(addprefix -I, $(INC_P))
+INC_P			= ./includes/
+HEADER			= $(addprefix $(INC_P), lem_in.h)
 
-OBJ = $(SRC:%.c=%.o)
+# libft
 
-all: $(LIB) $(NAME)
+LIB_P			= ./libft/
+ADD_LIB			= $(addprefix $(LIB_P),libft.a)
+INC_LIB			= -I ./libft
+LNK_LIB			= -L ./libft -l ftprintf
 
-$(LIB):
-	@make -C libft
+# compiler
 
-$(NAME): $(SRC)
-	@gcc $(FLAGC) -c $(SRC)
-	@gcc $(FLAGC) $(OBJ) $(LIB) -o $(NAME)
+CC 				= gcc
+CC_FLAGS 		= -g -Wall -Wextra -Werror
+
+all: obj $(ADD_LIB) $(NAME)
+
+obj:
+	@mkdir -p $(OBJ_P)
+
+$(OBJ_P)%.o:$(SRC_P)%.c $(HEADER)
+	@$(CC) $(CC_FLAGS) $(INC_LIB) -I $(INC_P) -o $@ -c $<
+
+$(ADD_LIB):
+	@make -C $(LIB_P)
+
+$(NAME): $(OBJ)
+	@$(CC) $(LNK_LIB) $(OBJ) -o $(NAME)
 
 clean:
-	@make clean -C libft
-	@rm -f $(OBJ) 
+	@rm -rf $(OBJ_P)
+	@make -C $(LIB_P) clean
 
 fclean: clean
-	@make fclean -C libft
-	@rm -f $(NAME)
+	@rm -rf $(NAME)
+	@make -C $(LIB_P) fclean
 
 re: fclean all
+
+.PHONY: all clean fclean re

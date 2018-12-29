@@ -6,11 +6,21 @@
 /*   By: amoroziu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/15 11:37:18 by amoroziu          #+#    #+#             */
-/*   Updated: 2018/12/24 15:44:33 by amoroziu         ###   ########.fr       */
+/*   Updated: 2018/12/29 14:02:55 by amoroziu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lem_in.h"
+#include "../includes/lem_in.h"
+
+t_room	*room_with_name(char *name, t_map *map)
+{
+	t_room	*cur;
+
+	cur = map->rooms;
+	while (!ft_strequ(cur->name, name))
+		cur = cur->next;
+	return (cur);
+}
 
 void	add_room(t_map *map, t_room *room)
 {

@@ -6,11 +6,11 @@
 /*   By: amoroziu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/15 10:53:51 by amoroziu          #+#    #+#             */
-/*   Updated: 2018/12/24 15:43:00 by amoroziu         ###   ########.fr       */
+/*   Updated: 2018/12/29 15:49:29 by amoroziu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lem_in.h"
+#include "../includes/lem_in.h"
 
 void		add_to_arr(char **arr, char *str)
 {
@@ -52,7 +52,7 @@ static int	get_ants_number(t_map *map)
 			res = res * 10 + *line - '0';
 			line++;
 		}
-		if (res< 0)
+		if (res <= 0)
 			return (0);
 		map->ants_count = res;
 		return (1);
@@ -75,12 +75,7 @@ int			get_map(t_map *map)
 			return (0);
 		add_to_arr(map->input, line);
 	}
-	if (get_next_line(1, &line) == -1)
+	if (get_next_line(0, &line) == -1)
 		perror("ERROR");
-//	if (!correct_map(map))
-//	{
-//		show_error(map);
-//		return (0);
-//	}
 	return (1);
 }

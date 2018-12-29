@@ -6,11 +6,11 @@
 /*   By: amoroziu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/24 16:22:17 by amoroziu          #+#    #+#             */
-/*   Updated: 2018/12/29 13:36:12 by amoroziu         ###   ########.fr       */
+/*   Updated: 2018/12/29 14:02:55 by amoroziu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lem_in.h"
+#include "../includes/lem_in.h"
 
 void			allign_links(t_map *map)
 {
@@ -22,8 +22,8 @@ void			allign_links(t_map *map)
 	cur = map->links;
 	while (cur)
 	{
-		first = get_room(cur->first, map);
-		second = get_room(cur->second, map);
+		first = room_with_name(cur->first, map);
+		second = room_with_name(cur->second, map);
 		if (first->bfs_level > second->bfs_level)
 		{
 			temp = cur->first;
@@ -67,7 +67,8 @@ void		delete_dead_ends(t_map *map)
 		counter = 0;
 		while (cur_room)
 		{
-			if (cur_room->outputs == 0 && cur_room->inputs == 0)
+			if ((cur_room->outputs == 0 || cur_room->inputs == 0) &&
+				cur_room != map->start && cur_room != map->end)
 			{
 				remove_room_from_adj(map, cur_room);
 				remove_links_with_room(map, cur_room);

@@ -6,11 +6,11 @@
 /*   By: amoroziu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/16 13:44:49 by amoroziu          #+#    #+#             */
-/*   Updated: 2018/12/29 12:54:53 by amoroziu         ###   ########.fr       */
+/*   Updated: 2018/12/29 14:03:35 by amoroziu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lem_in.h"
+#include "../includes/lem_in.h"
 
 static int	room_exists(t_map *map, char *name)
 {
