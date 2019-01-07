@@ -12,23 +12,45 @@
 
 #include "../includes/lem_in.h"
 
+t_node	*initialize_queue(t_queue *queue, t_map *map)
+{
+	t_node			*node;
+	t_queue_node	*first;
+
+	node = (t_node*)malloc(sizeof(t_node));
+	node->room = map->start;
+	node->next = NULL;
+	first = (t_queue_node*)malloc(sizeof(t_queue_node));
+	first->node = node;
+	first->next = NULL;
+	queue->head = first;
+	queue->tail = first;
+	return (node);
+}
+
 void	queue_pushback(t_node *node, t_queue *queue)
 {
+	t_queue_node	*new;
+
+	new = (t_queue_node*)malloc(sizeof(t_queue_node));
+	new->next = NULL;
+	new->node = node;
 	if (!queue->head)
 	{
-		queue->head = node;
-		queue->tail = node;
+		queue->head = new;
+		queue->tail = new;
 	}
 	else
 	{
-		queue->tail->next = node;
-		queue->tail = node;
+		queue->tail->next = new;
+		queue->tail = new;
 	}
 }
 
 t_node	*queue_popfront(t_queue *queue)
 {
-	t_node	*temp;
+	t_queue_node	*temp;
+	t_node			*node;
 
 	temp = queue->head;
 	if (queue->tail == queue->head)
@@ -41,5 +63,7 @@ t_node	*queue_popfront(t_queue *queue)
 		queue->head = temp->next;
 		temp->next = NULL;
 	}
-	return (temp);
+	node = temp->node;
+	free(temp);
+	return (node);
 }

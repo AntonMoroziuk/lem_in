@@ -33,7 +33,7 @@ void		remove_node(t_room *room, t_node **to_remove, t_node *prev)
 
 	if (room->bfs_level < (*to_remove)->room->bfs_level)
 		room->outputs--;
-	else
+	else if (room->bfs_level > (*to_remove)->room->bfs_level)
 		room->inputs--;
 	if (prev == NULL)
 		room->adj = (*to_remove)->next;

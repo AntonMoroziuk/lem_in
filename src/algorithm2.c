@@ -55,26 +55,72 @@ void			count_inputs_outputs(t_map *map)
 	}
 }
 
+static void	remove_room(t_map *map, t_room **cur, t_room *prev)
+{
+	t_room	*temp;
+
+	if (!prev)
+	{
+		temp = *cur;
+		*cur = (*cur)->next;
+		delete_room(temp);
+	}
+	else
+	{
+		prev->next = (*cur)->next;
+		delete_room(*cur);
+		*cur = prev->next;
+	}
+}
+
+static void	delete_unvisited(t_map *map)
+{
+	t_room	*cur;
+	t_room	*prev;
+
+	cur = map->rooms;
+	prev = NULL;
+	while (cur)
+	{
+		if (cur->bfs_level == -1)
+		{
+			remove_room_from_adj(map, cur);
+			remove_links_with_room(map, cur);
+			remove_room(map, &cur, prev);
+		}
+		else
+		{
+			prev = cur;
+			cur = cur->next;
+		}
+
+	}
+}
+
 void		delete_dead_ends(t_map *map)
 {
-	t_room	*cur_room;
-	int		counter;
+	t_room	*cur;
+	t_room	*prev;
+	int		depth;
 
-	counter = 1;
-	while (counter)
+	depth = map->max_bfs + 1;
+	while (--depth > 0)
 	{
-		cur_room = map->rooms;
-		counter = 0;
-		while (cur_room)
+		cur = map->rooms;
+		prev = NULL;
+		while (cur)
 		{
-			if ((cur_room->outputs == 0 || cur_room->inputs == 0) &&
-				cur_room != map->start && cur_room != map->end)
+			if (cur->bfs_level == depth && cur->outputs == 0)
 			{
-				remove_room_from_adj(map, cur_room);
-				remove_links_with_room(map, cur_room);
-				counter++;
+				remove_room_from_adj(map, cur);
+				remove_links_with_room(map, cur);
+				remove_room(map, &cur, prev);
 			}
-			cur_room = cur_room->next;
+			else
+			{
+				prev = cur;
+				cur = cur->next;
+			}
 		}
 	}
 }

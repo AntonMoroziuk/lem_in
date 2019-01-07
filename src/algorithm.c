@@ -79,42 +79,61 @@ static int		assign_bfs_level(t_map *map)
 	t_queue	queue;
 	int		i;
 	t_node	*cur;
+	t_node	*to_del;
 
 	i = -1;
 	visited = (int*)malloc(sizeof(int) * map->rooms_count);
 	while (++i < map->rooms_count)
 		visited[i] = 0;
 	visited[0] = 1;
-	map->start->bfs_level = 0;
-	cur = (t_node*)malloc(sizeof(t_node));
-	cur->room = map->start;
-	cur->next = NULL;
-	queue.head = cur;
-	queue.tail = cur;
+	to_del = initialize_queue(&queue, map);
 	while (queue.head)
 	{
 		cur = queue_popfront(&queue);
 		work_with_vertix(visited, cur->room, &queue, map);
 	}
+	free(visited);
+	free(to_del);
 	if (map->end->bfs_level != 2147483647)
 		return (0);
-	map->max_bfs = get_max_bfs_level(map);
 	return (1);
 }
 
 int				get_pathes(t_map *map)
 {
+	map->start->bfs_level = 0;
 	if (!assign_bfs_level(map))
 	{
 		ft_putendl("ERROR: start and end are not connected!");
 		return (0);
 	}
-	delete_useless_links(map);
+	map->max_bfs = get_max_bfs_level(map);
+//	delete_useless_links(map);
 	allign_links(map);
 	count_inputs_outputs(map);
+	t_room *cur;
+	cur = map->rooms;
+	while (cur)
+	{
+		ft_printf("%s %d %d %d\n", cur->name, cur->inputs, cur->outputs, cur->bfs_level);
+		cur = cur->next;
+	}
+//	ft_printf("!!!%d\n\n\n\n", map->start->outputs);
 	delete_dead_ends(map);
+	ft_printf("!!!%d\n\n\n\n", map->start->outputs);
+	int i = 0;
+	t_node *temp;
+	temp = map->start->adj;
+	while (temp)
+	{
+		i++;
+		temp = temp->next;
+	}
+	ft_printf("%d\n", i);
 	delete_input_forks(map);
+//	ft_printf("!!!%d\n\n\n\n", map->start->outputs);
 	delete_output_forks(map);
+//	ft_printf("!!!%d\n\n\n\n", map->start->outputs);
 	create_pathes(map);
 	return (1);
 }

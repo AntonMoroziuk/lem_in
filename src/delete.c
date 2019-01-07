@@ -14,21 +14,35 @@
 
 void	delete_room(t_room *room)
 {
-	ft_strdel(&room->name);
+	t_node	*node;
+	t_node	*temp;
+
+	if (room->name)
+		ft_strdel(&room->name);
+	if (room->adj)
+	{
+		node = room->adj;
+		while (node)
+		{
+			temp = node->next;
+			free(node);
+			node = temp;
+		}
+	}
 	free(room);
 }
 
 void	delete_rooms(t_room *head)
 {
 	t_room	*temp;
+	t_room	*room;
 
-	temp = head;
-	while (temp)
+	room = head;
+	while (room)
 	{
-		temp = temp->next;
-		ft_strdel(&head->name);
-		free(head);
-		head = temp;
+		temp = room->next;
+		delete_room(room);
+		room = temp;
 	}
 }
 
@@ -44,5 +58,19 @@ void	delete_links(t_link *head)
 		ft_strdel(&head->second);
 		free(head);
 		head = temp;
+	}
+}
+
+void	delete_pathes(t_path *head)
+{
+	t_path	*temp;
+
+	temp = head;
+	while (temp)
+	{
+		head = temp->next;
+		arrdel(temp->vertixes);
+		free(temp);
+		temp = head;
 	}
 }

@@ -34,21 +34,21 @@ static void	show_turn(t_path *path)
 	cur = path->ants;
 	while (cur)
 	{
-		if (cur->pos == 0)
+		if (!cur->next || cur->pos == 0)
 		{
-			ft_printf("L%d-%s\n", cur->idx, path->vertixes[0]);
+			ft_printf("L%d-%s", cur->idx, path->vertixes[0]);
 			cur->pos++;
 			break ;
 		}
 		ft_printf("L%d-%s ", cur->idx, path->vertixes[cur->pos]);
 		cur->pos++;
-		if (cur->pos == path->length)
-		{
-			path->ants = cur->next;
-			free(cur);
-			cur = path->ants;
-		}
 		cur = cur->next;
+	}
+	if (path->ants && path->ants->pos == path->length)
+	{
+		cur = path->ants;
+		path->ants = path->ants->next;
+		free(cur);
 	}
 }
 
@@ -62,6 +62,10 @@ static void	move_ants(t_map *map)
 		while (cur)
 		{
 			show_turn(cur);
+			if (!cur->next)
+				ft_putchar('\n');
+			else
+				ft_putchar(' ');
 			cur = cur->next;
 		}
 	}
@@ -76,14 +80,15 @@ void		print_answer(t_map *map)
 	while (map->ants_count)
 	{
 		cur = map->pathes;
-		//ft_putendl("here");
 		while (cur)
 		{
 			if (is_good(cur, map))
+			{
 				add_ant(cur, start_number - map->ants_count + 1);
+				map->ants_count--;
+			}
 			else
 				break ;
-			ft_putendl("here");
 			cur = cur->next;
 		}
 	}

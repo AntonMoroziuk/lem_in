@@ -12,15 +12,6 @@
 
 #include "../includes/lem_in.h"
 
-/*static void	print_map(t_map *map)
-{
-	int		i;
-
-	i = -1;
-	while (map->input[++i])
-		ft_printf("%s\n", map->input[i]);
-}
-*/
 int			no_start_or_end(t_map *map)
 {
 	if (!map->start)
@@ -36,46 +27,46 @@ int			no_start_or_end(t_map *map)
 	return (0);
 }
 
-/*static void	free_map(t_map *map)
+static void	free_map(t_map *map)
 {
-	int		i;
+	t_input	*input;
 
+	input = map->input;
+	while (input)
+	{
+		map->input = input->next;
+		ft_strdel(&input->line);
+		free(input);
+		input = map->input;
+	}
 	delete_rooms(map->rooms);
-	delete_room(map->start);
-	delete_room(map->end);
 	delete_links(map->links);
-	i = -1;
-	while (++i < map->rooms_count)
-		free(map->matrix[i]);
-	if (map->matrix)
-		free(map->matrix);
-	i = -1;
-	while (map->input[++i])
-		free(map->input[i]);
-	free(map->input);
+	delete_pathes(map->pathes);
+	if (map->rooms_array)
+		arrdel(map->rooms_array);
 }
-*/
+
 static void	initialize(t_map *map)
 {
 	map->rooms_count = 0;
 	map->ants_count = 0;
 	map->rooms_array = NULL;
-	map->matrix = NULL;
 	map->rooms = NULL;
 	map->start = NULL;
 	map->end = NULL;
 	map->links = NULL;
 	map->input = NULL;
+	map->pathes = NULL;
 }
 
-int			main(void)
+int			main(int argc, char **argv)
 {
 	t_map	map;
 
 	initialize(&map);
 	if (!get_map(&map))
 	{
-	//	free_map(&map);
+		free_map(&map);
 		return (0);
 	}
 	if (no_start_or_end(&map))
@@ -83,9 +74,7 @@ int			main(void)
 	work_with_map(&map);
 	if (!get_pathes(&map))
 		return (0);
-//	print_map(&map);
-	ft_putchar('\n');
-	print_answer(&map);
-//	free_map(&map);
+	format_output(argc, argv, &map);
+	free_map(&map);
 	return (0);
 }

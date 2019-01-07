@@ -17,10 +17,13 @@ static t_path	*new_path(t_room *room)
 	t_path	*path;
 
 	path = (t_path*)malloc(sizeof(t_path));
-	path->length = room->dist_to_end;
-	path->vertixes = (char**)malloc(sizeof(char*) * path->length);
+	path->length = room->dist_to_end + 1;
+	path->vertixes = (char**)malloc(sizeof(char*) * (path->length + 1));
 	path->vertixes[0] = ft_strdup(room->name);
+	path->vertixes[path->length] = NULL;
 	path->next = NULL;
+	path->ants = NULL;
+	path->ants_number = 0;
 	return (path);
 }
 
@@ -91,4 +94,5 @@ void			create_pathes(t_map *map)
 	i = -1;
 	while (arr[++i])
 		add_path(arr[i], map);
+	free(arr);
 }

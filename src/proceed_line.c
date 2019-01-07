@@ -14,7 +14,7 @@
 
 static int	get_edge(t_map *map, char *room, char *command)
 {
-	add_to_arr(map->input, room);
+	add_to_input(map, room);
 	if (ft_strequ(command, "##start"))
 	{
 		if (!(map->start = get_room(room, map)))
@@ -102,13 +102,18 @@ int			proceed_line(char *line, t_map *map)
 		if (!execute_command(line, map))
 			return (0);
 	}
+	else if (ft_strchr(line, ' ') && ft_strchr(line, '-'))
+	{
+		ft_putendl("ERROR: Incorrect format!");
+		return (0);
+	}
 	else if (ft_strchr(line, ' '))
 	{
 		if (map->links || !get_room(line, map))
 			return (0);
 	}
 	else
-		if (no_start_or_end(map) || !get_link(line, map))
+		if (!get_link(line, map) || no_start_or_end(map))
 			return (0);
 	return (1);
 }

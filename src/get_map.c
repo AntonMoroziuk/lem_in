@@ -12,29 +12,23 @@
 
 #include "../includes/lem_in.h"
 
-void		add_to_arr(char **arr, char *str)
+void		add_to_input(t_map *map, char *str)
 {
-	int		i;
-	char	**new;
+	t_input		*new;
+	t_input		*cur;
 
-	if (!arr)
+	new = (t_input*)malloc(sizeof(t_input));
+	new->line = str;
+	new->next = NULL;
+	if (!map->input)
+		map->input = new;
+	else
 	{
-		arr = (char**)malloc(sizeof(char*) * 2);
-		arr[0] = str;
-		arr[1] = NULL;
-		return ;
+		cur = map->input;
+		while (cur->next)
+			cur = cur->next;
+		cur->next = new;
 	}
-	i = -1;
-	while (arr[++i])
-		;
-	new = (char**)malloc(sizeof(char*) * (i + 1));
-	i = -1;
-	while (arr[++i])
-		new[i] = arr[i];
-	new[i] = str;
-	new[i + 1] = NULL;
-	arrdel(arr);
-	arr = new;
 }
 
 static int	get_ants_number(t_map *map)
@@ -44,6 +38,7 @@ static int	get_ants_number(t_map *map)
 
 	if (get_next_line(0, &line) > 0)
 	{
+		add_to_input(map, line);
 		res = 0;
 		while (*line)
 		{
@@ -71,9 +66,9 @@ int			get_map(t_map *map)
 	}
 	while (get_next_line(0, &line) > 0)
 	{
+		add_to_input(map, line);
 		if (!proceed_line(line, map))
 			return (0);
-		add_to_arr(map->input, line);
 	}
 	if (get_next_line(0, &line) == -1)
 		perror("ERROR");

@@ -66,7 +66,7 @@ static void		remove_other_adj(t_room *child, t_room *parent)
 			remove_node(child, &cur, prev);
 		else
 		{
-			prev =cur;
+			prev = cur;
 			cur = cur->next;
 		}
 	}
@@ -99,7 +99,7 @@ void			delete_input_forks(t_map *map)
 	t_room	*best_pred;
 	int		i;
 
-	i = 1;
+	i = 0;
 	while (++i < map->max_bfs)
 	{
 		cur = map->rooms;

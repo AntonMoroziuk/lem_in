@@ -22,7 +22,7 @@ static t_ant	*create_ant(int ant_idx)
 	new->next = NULL;
 	return (new);
 }
-
+#include <stdio.h>
 void	add_ant(t_path *path, int ant_idx)
 {
 	t_ant	*new;
@@ -34,7 +34,7 @@ void	add_ant(t_path *path, int ant_idx)
 	else
 	{
 		cur = path->ants;
-		while (cur)
+		while (cur->next)
 			cur = cur->next;
 		cur->next = new;
 	}

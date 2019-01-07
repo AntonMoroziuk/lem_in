@@ -42,6 +42,8 @@ int			incorrect_link(t_map *map, t_link *link)
 	t_link	*cur;
 
 	cur = map->links;
+	if (check_rooms(map, link))
+				return (1);
 	while (cur)
 	{
 		if ((ft_strequ(cur->first, link->first) &&
@@ -52,9 +54,6 @@ int			incorrect_link(t_map *map, t_link *link)
 			ft_putendl("ERROR: Link already exists!");
 			return (1);
 		}
-		else
-			if (check_rooms(map, link))
-				return (1);
 		cur = cur->next;
 	}
 	return (0);
