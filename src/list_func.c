@@ -17,7 +17,7 @@ t_room	*room_with_name(char *name, t_map *map)
 	t_room	*cur;
 
 	cur = map->rooms;
-	while (!ft_strequ(cur->name, name))
+	while (cur && !ft_strequ(cur->name, name))
 		cur = cur->next;
 	return (cur);
 }

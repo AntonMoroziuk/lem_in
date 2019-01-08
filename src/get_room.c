@@ -6,24 +6,19 @@
 /*   By: amoroziu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/15 11:35:12 by amoroziu          #+#    #+#             */
-/*   Updated: 2018/12/29 15:48:42 by amoroziu         ###   ########.fr       */
+/*   Updated: 2019/01/08 14:33:15 by amoroziu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/lem_in.h"
 
-static t_room	*new_room()
+static t_room	*new_room(void)
 {
 	t_room	*new;
 
 	MALLOCCHECK_NULL((new = (t_room*)malloc(sizeof(t_room))));
 	new->name = NULL;
 	new->next = NULL;
-	new->adj = NULL;
-	new->inputs = 0;
-	new->outputs = 0;
-	new->bfs_level = -1;
-	new->dist_to_end = 2147483647;
 	return (new);
 }
 
@@ -53,6 +48,7 @@ t_room			*get_room(char *str, t_map *map)
 	new = new_room();
 	if (!new)
 		return (NULL);
+	new->idx = map->rooms_count;
 	i = -1;
 	while (str[++i] && str[i] != ' ')
 		;
@@ -60,7 +56,7 @@ t_room			*get_room(char *str, t_map *map)
 	if (!pseudo_atoi(str, &i, &new->x) || !pseudo_atoi(str, &i, &new->y) ||
 		str[i] || incorrect_room(new, map))
 	{
-		//delete_room(new);
+		delete_room(new);
 		return (NULL);
 	}
 	add_room(map, new);

@@ -19,6 +19,8 @@ static int	is_good(t_path *path, t_map *map)
 
 	sum = 0;
 	cur = map->pathes;
+	if (map->ants_count <= path->length - map->pathes->length)
+		return (0);
 	while (cur != path)
 	{
 		sum += path->length - cur->length;

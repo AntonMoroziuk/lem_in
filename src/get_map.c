@@ -6,7 +6,7 @@
 /*   By: amoroziu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/15 10:53:51 by amoroziu          #+#    #+#             */
-/*   Updated: 2018/12/29 15:49:29 by amoroziu         ###   ########.fr       */
+/*   Updated: 2019/01/08 15:07:10 by amoroziu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,35 +31,41 @@ void		add_to_input(t_map *map, char *str)
 	}
 }
 
-static int	get_ants_number(t_map *map)
+static int	get_ants_number(t_map *map, char *line)
 {
 	int		res;
-	char	*line;
 
-	if (get_next_line(0, &line) > 0)
+	add_to_input(map, line);
+	while (line[0] == '#' && !ft_strequ(line, "##start") &&
+			!ft_strequ(line, "##end"))
 	{
+		get_next_line(0, &line);
 		add_to_input(map, line);
-		res = 0;
-		while (*line)
-		{
-			if (!ft_isdigit(*line))
-				return (0);
-			res = res * 10 + *line - '0';
-			line++;
-		}
-		if (res <= 0)
-			return (0);
-		map->ants_count = res;
-		return (1);
 	}
-	return (0);
+	res = 0;
+	while (*line)
+	{
+		if (!ft_isdigit(*line))
+			return (0);
+		res = res * 10 + *line - '0';
+		line++;
+	}
+	if (res <= 0)
+		return (0);
+	map->ants_count = res;
+	return (1);
 }
 
 int			get_map(t_map *map)
 {
 	char	*line;
 
-	if (!get_ants_number(map))
+	if (get_next_line(0, &line) < 0)
+	{
+		ft_putendl("ERROR: problem with file!");
+		return (0);
+	}
+	if (!get_ants_number(map, line))
 	{
 		ft_putendl("ERROR: Ants number is incorrect or missing!");
 		return (0);

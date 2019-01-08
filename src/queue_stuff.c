@@ -6,35 +6,22 @@
 /*   By: amoroziu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/22 12:31:35 by amoroziu          #+#    #+#             */
-/*   Updated: 2018/12/29 14:02:55 by amoroziu         ###   ########.fr       */
+/*   Updated: 2019/01/08 14:32:32 by amoroziu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/lem_in.h"
 
-t_node	*initialize_queue(t_queue *queue, t_map *map)
+void	queue_pushback(t_link *link, t_room *pred, t_queue *queue)
 {
-	t_node			*node;
-	t_queue_node	*first;
+	t_node	*new;
 
-	node = (t_node*)malloc(sizeof(t_node));
-	node->room = map->start;
-	node->next = NULL;
-	first = (t_queue_node*)malloc(sizeof(t_queue_node));
-	first->node = node;
-	first->next = NULL;
-	queue->head = first;
-	queue->tail = first;
-	return (node);
-}
-
-void	queue_pushback(t_node *node, t_queue *queue)
-{
-	t_queue_node	*new;
-
-	new = (t_queue_node*)malloc(sizeof(t_queue_node));
+	new = (t_node*)malloc(sizeof(t_node));
 	new->next = NULL;
-	new->node = node;
+	if (link->first == pred)
+		new->room = link->second;
+	else
+		new->room = link->first;
 	if (!queue->head)
 	{
 		queue->head = new;
@@ -47,23 +34,16 @@ void	queue_pushback(t_node *node, t_queue *queue)
 	}
 }
 
-t_node	*queue_popfront(t_queue *queue)
+t_room	*queue_popfront(t_queue *queue)
 {
-	t_queue_node	*temp;
-	t_node			*node;
+	t_node	*temp;
+	t_room	*room;
 
 	temp = queue->head;
-	if (queue->tail == queue->head)
-	{
+	if (queue->head == queue->tail)
 		queue->tail = NULL;
-		queue->head = NULL;
-	}
-	else
-	{
-		queue->head = temp->next;
-		temp->next = NULL;
-	}
-	node = temp->node;
+	queue->head = temp->next;
+	room = temp->room;
 	free(temp);
-	return (node);
+	return (room);
 }

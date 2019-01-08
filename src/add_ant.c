@@ -6,7 +6,7 @@
 /*   By: amoroziu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/28 15:19:10 by amoroziu          #+#    #+#             */
-/*   Updated: 2018/12/29 14:02:55 by amoroziu         ###   ########.fr       */
+/*   Updated: 2019/01/08 14:35:40 by amoroziu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ static t_ant	*create_ant(int ant_idx)
 	new->next = NULL;
 	return (new);
 }
-#include <stdio.h>
-void	add_ant(t_path *path, int ant_idx)
+
+void			add_ant(t_path *path, int ant_idx)
 {
 	t_ant	*new;
 	t_ant	*cur;

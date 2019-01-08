@@ -15,24 +15,20 @@ NAME = lem-in
 # srcs, path and obj
 
 SRC_N			=	add_ant.c \
-                    add_link.c \
 					algorithm.c \
-					algorithm2.c \
-					create_pathes.c \
 					delete.c \
-					delete_input_forks.c \
-					delete_output_forks.c \
 					find.c \
 					get_map.c \
 					get_room.c \
+					get_link.c \
 					incorrect.c \
 					list_func.c \
 					main.c \
+					output.c \
 					print_answer.c \
+					print_count.c \
 					proceed_line.c \
 					queue_stuff.c \
-					remove.c \
-					work_with_map.c
 
 SRC_P 			= ./src/
 OBJ 			= $(addprefix $(OBJ_P),$(SRC_N:.c=.o))

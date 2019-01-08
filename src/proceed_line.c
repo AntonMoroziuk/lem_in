@@ -6,7 +6,7 @@
 /*   By: amoroziu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/15 11:14:38 by amoroziu          #+#    #+#             */
-/*   Updated: 2018/12/29 15:48:52 by amoroziu         ###   ########.fr       */
+/*   Updated: 2019/01/08 14:58:02 by amoroziu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,8 @@ static int	get_edge(t_map *map, char *room, char *command)
 		if (!(map->start = get_room(room, map)))
 			return (0);
 	}
-	else
-		if (!(map->end = get_room(room, map)))
-			return (0);
+	else if (!(map->end = get_room(room, map)))
+		return (0);
 	return (1);
 }
 
@@ -33,6 +32,12 @@ static int	execute_command(char *line, t_map *map)
 
 	if (!ft_strequ(line, "##start") && !ft_strequ(line, "##end"))
 		return (1);
+	if ((ft_strequ(line, "##start") && map->start) ||
+		(ft_strequ(line, "##end") && map->end))
+	{
+		ft_putendl("ERROR: Duplicate start or end!");
+		return (0);
+	}
 	temp = get_next_line(0, &room);
 	if (temp == 0)
 	{
@@ -46,50 +51,6 @@ static int	execute_command(char *line, t_map *map)
 	}
 	if (!get_edge(map, room, line))
 		return (0);
-	return (1);
-}
-
-static void	add_link(t_map *map, t_link *link)
-{
-	t_link	*cur;
-
-	add_link_to_rooms(map, link);
-	if (!map->links)
-		map->links = link;
-	else
-	{
-		cur = map->links;
-		while (cur->next)
-			cur = cur->next;
-		cur->next = link;
-	}
-}
-
-static int	get_link(char *str, t_map *map)
-{
-	int		i;
-	t_link	*new;
-
-	i = -1;
-	new = (t_link*)malloc(sizeof(t_link));
-	if (!new)
-		return (0);
-	new->next = NULL;
-	new->first = NULL;
-	new->second = NULL;
-	while (str[++i] && str[i] != '-')
-		;
-	if (!str[i])
-		return (0);
-	new->first = ft_strsub(str, 0, i);
-	while (str[++i] && str[i] != '-')
-		;
-	if (str[i])
-		return (0);
-	new->second = ft_strsub(ft_strchr(str, '-'), 1, ft_strlen(ft_strchr(str, '-')));
-	if (incorrect_link(map, new))
-		return (0);
-	add_link(map, new);
 	return (1);
 }
 
@@ -112,8 +73,7 @@ int			proceed_line(char *line, t_map *map)
 		if (map->links || !get_room(line, map))
 			return (0);
 	}
-	else
-		if (!get_link(line, map) || no_start_or_end(map))
-			return (0);
+	else if (!get_link(line, map) || no_start_or_end(map))
+		return (0);
 	return (1);
 }
