@@ -6,7 +6,7 @@
 /*   By: amoroziu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/16 13:44:49 by amoroziu          #+#    #+#             */
-/*   Updated: 2019/01/08 15:09:53 by amoroziu         ###   ########.fr       */
+/*   Updated: 2019/01/08 15:35:57 by amoroziu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,11 @@ int			incorrect_room(t_room *room, t_map *map)
 	t_room	*cur;
 
 	cur = map->rooms;
+	if (room->name[0] == 'L')
+	{
+		ft_putendl("ERROR: Room name cannot start with L!");
+		return (1);
+	}
 	while (cur)
 	{
 		if (ft_strequ(cur->name, room->name))

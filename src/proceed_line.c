@@ -6,7 +6,7 @@
 /*   By: amoroziu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/15 11:14:38 by amoroziu          #+#    #+#             */
-/*   Updated: 2019/01/08 14:58:02 by amoroziu         ###   ########.fr       */
+/*   Updated: 2019/01/08 15:37:30 by amoroziu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,8 @@ int			proceed_line(char *line, t_map *map)
 		if (!execute_command(line, map))
 			return (0);
 	}
-	else if (ft_strchr(line, ' ') && ft_strchr(line, '-'))
+	else if ((ft_strchr(line, ' ') && ft_strchr(line, '-')) ||
+			(!ft_strchr(line, ' ') && !ft_strchr(line, '-')))
 	{
 		ft_putendl("ERROR: Incorrect format!");
 		return (0);
