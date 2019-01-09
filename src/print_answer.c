@@ -6,7 +6,7 @@
 /*   By: amoroziu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/22 16:15:52 by amoroziu          #+#    #+#             */
-/*   Updated: 2018/12/29 14:02:55 by amoroziu         ###   ########.fr       */
+/*   Updated: 2019/01/09 11:02:58 by amoroziu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,15 @@ static void	show_turn(t_path *path)
 	cur = path->ants;
 	while (cur)
 	{
-		if (!cur->next || cur->pos == 0)
+		if (cur->pos == 0)
 		{
 			ft_printf("L%d-%s", cur->idx, path->vertixes[0]);
 			cur->pos++;
 			break ;
 		}
-		ft_printf("L%d-%s ", cur->idx, path->vertixes[cur->pos]);
+		ft_printf("L%d-%s", cur->idx, path->vertixes[cur->pos]);
+		if (cur->next)
+			ft_putchar(' ');
 		cur->pos++;
 		cur = cur->next;
 	}
