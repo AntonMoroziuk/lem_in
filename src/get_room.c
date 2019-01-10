@@ -6,7 +6,7 @@
 /*   By: amoroziu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/15 11:35:12 by amoroziu          #+#    #+#             */
-/*   Updated: 2019/01/08 15:34:34 by amoroziu         ###   ########.fr       */
+/*   Updated: 2019/01/10 12:28:56 by amoroziu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,11 @@ static int		pseudo_atoi(char *str, int *start, int *res)
 	while (ft_isdigit(str[*start]))
 	{
 		*res = *res * 10 + str[*start] - '0';
+		if (*res < 0)
+		{
+			ft_putendl("ERROR: Invalid coordinates!");
+			return (0);
+		}
 		(*start)++;
 	}
 	return (1);

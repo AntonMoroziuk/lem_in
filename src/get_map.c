@@ -6,7 +6,7 @@
 /*   By: amoroziu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/15 10:53:51 by amoroziu          #+#    #+#             */
-/*   Updated: 2019/01/08 15:07:10 by amoroziu         ###   ########.fr       */
+/*   Updated: 2019/01/10 12:26:34 by amoroziu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int			get_map(t_map *map)
 {
 	char	*line;
 
-	if (get_next_line(0, &line) < 0)
+	if (get_next_line(0, &line) <= 0)
 	{
 		ft_putendl("ERROR: problem with file!");
 		return (0);
